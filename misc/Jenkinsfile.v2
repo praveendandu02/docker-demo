@@ -27,5 +27,9 @@ node {
      docker.withRegistry('https://index.docker.io/v2/', 'docker_cred') {
        def app = docker.build("praveendandu02/docker-nodejs-demo:${commit_id}", '.').push()
      }                                     
-   }                                       
+   }  
+   stage('slack notification') {
+   // send slack notification
+    slackSend (color: '#FF0000', message: "success: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+    }
 }                                          
